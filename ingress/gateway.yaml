@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gateway
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/v1/companies
+            pathType: Prefix
+            backend:
+              service:
+                name: company-app-service
+                port:
+                  number: 8080
+          - path: /api/v1/users
+            pathType: Prefix
+            backend:
+              service:
+                name: order-app-service
+                port:
+                  number: 8080
+          - path: /api/v1/*
+            pathType: Prefix
+            backend:
+              service:
+                name: common-app-service
+                port:
+                  number: 8080
