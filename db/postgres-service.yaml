@@ -37,8 +37,8 @@ spec:
               subPath: postgres
           resources:
             limits:
-              memory: "128M"
-              cpu: "100m"
+              memory: 128M
+              cpu: 100m
       volumes:
         - name: db-pv-storage
           persistentVolumeClaim:
