@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: company-app
-          image: pavelsidorovich/company-service:1.0
+          image: company-service:1.0
           ports:
             - containerPort: 8080
           env:
@@ -24,17 +24,19 @@ spec:
               value: docker
             - name: spring.config.import
               value: configserver:http://config-server-service:8888
+          resources:
+            limits:
+              memory: 1024Mi
+              cpu: 500m
           livenessProbe:
-            initialDelaySeconds: 10
+            initialDelaySeconds: 5
             periodSeconds: 60
-            failureThreshold: 3
             httpGet:
               path: /actuator/health/liveness
               port: 8080
           readinessProbe:
-            initialDelaySeconds: 10
+            initialDelaySeconds: 5
             periodSeconds: 60
-            failureThreshold: 3
             httpGet:
               path: /actuator/health/readiness
               port: 8080

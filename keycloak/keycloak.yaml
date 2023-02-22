@@ -32,15 +32,10 @@ spec:
                   key: keycloak-password
             - name: KC_HEALTH_ENABLED
               value: "true"
-          args: ["start-dev --import-realm"]
-          #          livenessProbe:
-          #            httpGet:
-          #              path: /health/live
-          #              port: 8081
-          #          readinessProbe:
-          #            httpGet:
-          #              path: /health/ready
-          #              port: 8081
+          args: [ "start-dev --import-realm" ]
+          resources:
+            limits:
+              cpu: 500m
           volumeMounts:
             - name: keycloak-volume
               mountPath: /opt/keycloak/data/import

@@ -1,9 +1,23 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-pv-storage
+spec:
+  storageClassName: mongo-storage
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mongodb-pv-claim
 spec:
-  storageClassName: standard-rwo
+  storageClassName: mongo-storage
   accessModes:
     - ReadWriteOnce
   resources:
