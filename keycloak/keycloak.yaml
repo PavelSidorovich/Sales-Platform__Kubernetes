@@ -33,9 +33,6 @@ spec:
             - name: KC_HEALTH_ENABLED
               value: "true"
           args: [ "start-dev --import-realm" ]
-          resources:
-            limits:
-              cpu: 500m
           volumeMounts:
             - name: keycloak-volume
               mountPath: /opt/keycloak/data/import

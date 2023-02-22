@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: order-app
-          image: order-service:1.0
+          image: pavelsidorovich/order-service:1.0
           ports:
             - containerPort: 8080
           env:
@@ -24,19 +24,15 @@ spec:
               value: docker
             - name: spring.config.import
               value: configserver:http://config-server-service:8888
-          resources:
-            limits:
-              memory: 1024Mi
-              cpu: 500m
           livenessProbe:
-            initialDelaySeconds: 5
-            periodSeconds: 60
+            initialDelaySeconds: 15
+            periodSeconds: 20
             httpGet:
               path: /actuator/health/liveness
               port: 8080
           readinessProbe:
-            initialDelaySeconds: 5
-            periodSeconds: 60
+            initialDelaySeconds: 15
+            periodSeconds: 20
             httpGet:
               path: /actuator/health/readiness
               port: 8080

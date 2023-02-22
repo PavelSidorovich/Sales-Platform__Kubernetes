@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongodb-deployment
+  name: mongodb-stateful-set
   labels:
     app: mongodb
 spec:
@@ -37,9 +37,6 @@ spec:
             - name: mongodb-pv-storage
               mountPath: /var/lib/mongodb/data
               subPath: mongo
-          resources:
-            limits:
-              memory: 256Mi
       volumes:
         - name: mongodb-pv-storage
           persistentVolumeClaim:

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: db-deployment
+  name: postgres-stateful-set
   labels:
-    app: db
+    app: postgres
 spec:
-  serviceName: db
+  serviceName: postgres
   replicas: 1
   selector:
     matchLabels:
-      app: db
+      app: postgres
   template:
     metadata:
       labels:
-        app: db
+        app: postgres
     spec:
       containers:
         - name: postgres-db
@@ -24,24 +24,21 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: postgres-secret
                   key: db-username
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: postgres-secret
                   key: db-password
           volumeMounts:
-            - name: db-pv-storage
+            - name: postgres-pv-storage
               mountPath: /var/lib/postgresql/data
               subPath: postgres
-          resources:
-            limits:
-              memory: 128Mi
       volumes:
-        - name: db-pv-storage
+        - name: postgres-pv-storage
           persistentVolumeClaim:
-            claimName: db-pv-claim
+            claimName: postgres-pv-claim
 ---
 apiVersion: v1
 kind: Service
@@ -49,7 +46,7 @@ metadata:
   name: db-service
 spec:
   selector:
-    app: db
+    app: postgres
   ports:
     - port: 5432
       targetPort: 5432

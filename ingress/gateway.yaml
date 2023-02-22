@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: gateway
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: "gce"
 spec:
   rules:
     - http:
@@ -15,14 +15,14 @@ spec:
                 name: company-app-service
                 port:
                   number: 8080
-          - path: /api/v1/users
+          - path: /api/v1/transactions
             pathType: Prefix
             backend:
               service:
                 name: order-app-service
                 port:
                   number: 8080
-          - path: /api/v1/*
+          - path: /api/v1
             pathType: Prefix
             backend:
               service:

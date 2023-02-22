@@ -22,10 +22,6 @@ spec:
           env:
             - name: ZOOKEEPER_CLIENT_PORT
               value: "2181"
-          resources:
-            limits:
-              memory: 128Mi
-              cpu: 100m
 ---
 apiVersion: v1
 kind: Service
